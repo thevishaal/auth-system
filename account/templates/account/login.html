@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - Secure Authentication</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#269c75",
+                        "primary-hover": "#208563",
+                        "background-light": "#f9fafb",
+                        "background-dark": "#1a1c1e",
+                        "surface-dark": "#25282b",
+                        "input-border": "#dde4e2",
+                        "text-main": "#121715",
+                        "text-muted": "#67837a",
+                        "error": "#d32f2f",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 8px 30px rgba(0,0,0,0.04)',
+                        'glow': '0 0 0 2px rgba(38, 156, 117, 0.2)',
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-main dark:text-gray-100 antialiased transition-colors duration-200">
+<div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+<!-- Subtle Geometric Background Decoration -->
+<div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+<div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
+<!-- Brand Logo -->
+<div class="flex items-center gap-3 mb-6">
+<div class="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-white shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined text-2xl">lock_open</span>
+</div>
+<h2 class="text-2xl font-bold tracking-tight text-text-main dark:text-white">SecureAuth</h2>
+</div>
+<h2 class="mt-2 text-center text-3xl font-bold tracking-tight text-text-main dark:text-white">
+                Welcome back
+            </h2>
+<p class="mt-2 text-center text-sm text-text-muted dark:text-gray-400">
+                Please enter your details to sign in.
+            </p>
+</div>
+<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+<div class="bg-white dark:bg-surface-dark py-8 px-4 shadow-soft sm:rounded-xl sm:px-10 border border-gray-100 dark:border-gray-800 relative">
+<!-- Decorative Top Bar -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/60 via-primary to-primary/60"></div>
+<form action="#" class="space-y-6" method="POST">
+<!-- Email Field -->
+<div>
+<label class="block text-sm font-medium leading-6 text-text-main dark:text-gray-200" for="email">
+                            Email address
+                        </label>
+<div class="mt-2 relative">
+<input autocomplete="email" class="block w-full rounded-lg border-0 py-3 text-text-main shadow-sm ring-1 ring-inset ring-input-border placeholder:text-text-muted focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 dark:bg-background-dark dark:ring-gray-700 dark:text-white dark:placeholder-gray-500 transition-shadow duration-200" id="email" name="email" placeholder="user@example.com" required="" type="email"/>
+<!-- Hidden Error State Example -->
+<!-- <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                <span class="material-symbols-outlined text-error text-xl">error</span>
+                            </div> -->
+</div>
+<!-- Validation Message -->
+<!-- <p class="mt-2 text-xs text-error" id="email-error">Please enter a valid email address.</p> -->
+</div>
+<!-- Password Field -->
+<div>
+<label class="block text-sm font-medium leading-6 text-text-main dark:text-gray-200" for="password">
+                            Password
+                        </label>
+<div class="mt-2 relative rounded-lg shadow-sm">
+<input autocomplete="current-password" class="block w-full rounded-lg border-0 py-3 pr-10 text-text-main ring-1 ring-inset ring-input-border placeholder:text-text-muted focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 dark:bg-background-dark dark:ring-gray-700 dark:text-white transition-shadow duration-200" id="password" name="password" required="" type="password" value="Password123"/>
+<!-- Toggle Password Visibility -->
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</div>
+</div>
+</div>
+<!-- Remember Me & Forgot Password -->
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<input class="h-4 w-4 rounded border-input-border text-primary focus:ring-primary dark:bg-background-dark dark:border-gray-600 dark:checked:bg-primary" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-2 block text-sm leading-6 text-text-main dark:text-gray-300" for="remember-me">
+                                Remember me for 30 days
+                            </label>
+</div>
+<div class="text-sm leading-6">
+<a class="font-semibold text-primary hover:text-primary-hover transition-colors" href="#">
+                                Forgot password?
+                            </a>
+</div>
+</div>
+<!-- Primary Action -->
+<div>
+<button class="flex w-full justify-center rounded-lg bg-primary px-3 py-3 text-sm font-bold leading-6 text-white shadow-sm hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all duration-200 transform active:scale-[0.98]" type="submit">
+                            Sign in
+                        </button>
+</div>
+</form>
+<!-- Divider -->
+<div class="mt-8">
+<div class="relative">
+<div aria-hidden="true" class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+</div>
+<div class="relative flex justify-center text-sm font-medium leading-6">
+<span class="bg-white dark:bg-surface-dark px-4 text-text-muted dark:text-gray-500">Or continue with</span>
+</div>
+</div>
+<!-- Google Login -->
+<div class="mt-6 grid grid-cols-1 gap-4">
+<button class="flex w-full items-center justify-center gap-3 rounded-lg bg-white dark:bg-background-dark px-3 py-3 text-sm font-semibold text-text-main dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 focus-visible:ring-transparent transition-all duration-200 transform active:scale-[0.98]" type="button">
+<svg aria-hidden="true" class="h-5 w-5" viewbox="0 0 24 24">
+<path d="M12.0003 20.45C16.6042 20.45 20.4357 17.228 21.8488 13.064H12.0003V9.69601H22.3768C22.4888 10.424 22.5448 11.184 22.5448 12C22.5448 17.816 17.8168 22.544 12.0003 22.544C6.18384 22.544 1.45581 17.816 1.45581 12C1.45581 6.18401 6.18384 1.45601 12.0003 1.45601C14.5368 1.45601 16.8008 2.26401 18.6008 3.96801L15.6328 6.93601C14.8888 6.23201 13.6088 5.66401 12.0003 5.66401C8.50481 5.66401 5.66481 8.50401 5.66481 12C5.66481 15.496 8.50481 18.336 12.0003 18.336V20.45Z" fill="currentColor"></path>
+</svg>
+<span class="text-sm">Sign in with Google</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Link -->
+<p class="mt-10 text-center text-sm text-text-muted dark:text-gray-400">
+                Don't have an account?
+                <a class="font-semibold leading-6 text-primary hover:text-primary-hover transition-colors" href="#">Sign up for free</a>
+</p>
+</div>
+</div>
+</body></html>

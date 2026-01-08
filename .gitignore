@@ -1,0 +1,84 @@
+# =========================
+# Python / Django
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+*.log
+*.pot
+random.html
+# Django stuff
+*.mo
+local_settings.py
+db.sqlite3
+
+# Media & Static
+media/
+staticfiles/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.*
+venv/
+ENV/
+env/
+.venv/
+
+# =========================
+# Django Migrations
+# =========================
+migrations/__pycache__/
+**/migrations/*.pyc
+
+# =========================
+# IDEs / Editors
+# =========================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Node / Frontend (Optional)
+# =========================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# =========================
+# Test / Coverage
+# =========================
+.coverage
+htmlcov/
+.tox/
+pytest_cache/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# Build / Distribution
+# =========================
+build/
+dist/
+*.egg-info/
+
+# =========================
+# Secrets
+# =========================
+*.pem
+*.key
