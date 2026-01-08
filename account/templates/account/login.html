@@ -101,7 +101,8 @@
           <div
             class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/60 via-primary to-primary/60"
           ></div>
-          <form action="#" class="space-y-6" method="POST">
+          <form action="{% url 'account:login_view' %}" class="space-y-6" method="POST" novalidate>
+            {% csrf_token %}
             <!-- Email Field -->
             <div>
               <label
