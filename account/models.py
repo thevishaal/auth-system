@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.core.validators import RegexValidator
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -32,11 +33,12 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=10, validators=[RegexValidator(regex=r'^[6-9]\d{9}$', message="Enter a valid 10-digit phone number")], blank=True, null=True, default='')
     city = models.CharField(max_length=255)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    is_customer = models.BooleanField(default=False)
+    is_customer = models.BooleanField(default=True)
     is_seller = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

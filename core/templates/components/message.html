@@ -1,0 +1,5 @@
+{% if messages %}
+    {% for message in messages %}
+        <span class="{{ message.tags }} bg-rose-600 font-bold">{{ message }}</span> <br><br>
+    {% endfor %}
+{% endif %}

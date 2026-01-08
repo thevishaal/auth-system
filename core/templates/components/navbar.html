@@ -1,10 +1,8 @@
-<!-- Top Navigation -->
 <header
   class="sticky top-0 z-50 w-full bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-border-light dark:border-border-dark"
 >
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
-      <!-- Logo Area -->
       <div class="flex items-center gap-3">
         <div class="text-primary p-1.5 bg-primary/10 rounded-lg">
           <span class="material-symbols-outlined text-[24px]">eco</span>
@@ -14,28 +12,52 @@
           >Auth System</span
         >
       </div>
-      <!-- Desktop Nav & Profile -->
       <div class="flex items-center gap-6">
-        <nav class="hidden md:flex items-center gap-6 mr-4">
+        <nav class="hidden md:flex items-center gap-6">
           <a
             class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-            href="#"
+            href="{% url 'core:home' %}"
             >Home</a
           >
+          {% if user.is_authenticated %}
           <a
             class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
             href="#"
             >Dashboard</a
           >
+          {% endif %}
         </nav>
+        {% if not user.is_authenticated %}
+        <div class="hidden md:flex items-center gap-3">
+          <a
+            class="inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white transition-all bg-primary rounded-lg hover:bg-primary-hover shadow-sm hover:shadow-md"
+            href="{% url 'account:login_view' %}"
+            >Login</a
+          >
+          <a
+            class="inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white transition-all bg-primary rounded-lg hover:bg-primary-hover shadow-sm hover:shadow-md"
+            href="{% url 'account:register_view' %}"
+            >Register</a
+          >
+        </div>
+        {% endif %}
+        {% if user.is_authenticated %}
         <div
           class="h-6 w-px bg-border-light dark:bg-border-dark hidden md:block"
         ></div>
         <div class="flex items-center gap-3 pl-2">
           <div class="hidden sm:flex flex-col items-end">
-            <span class="text-sm font-bold leading-none">Alex Morgan</span>
+            <span class="text-sm font-bold leading-none">{{user.name}}</span>
             <span class="text-xs text-gray-500 dark:text-gray-400"
-              >Customer</span
+              >
+              {% if user.is_superuser %}
+              Superuser
+              {% elif user.is_seller %}
+              Seller
+              {% elif user.is_customer %}
+              Customer
+              {% endif %}
+              </span
             >
           </div>
           <div
@@ -51,6 +73,7 @@
           >
             <span class="material-symbols-outlined text-[20px]">logout</span>
           </button>
+          {% endif %}
         </div>
       </div>
     </div>

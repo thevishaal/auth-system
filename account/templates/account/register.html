@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en">
   <head>
     <meta charset="utf-8" />
@@ -71,6 +70,7 @@
     <header
       class="w-full px-6 py-4 flex justify-between items-center absolute top-0 left-0 z-10"
     >
+      <a href="{% url 'core:home' %}">
       <div class="flex items-center gap-2 cursor-pointer group">
         <div
           class="size-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300"
@@ -82,6 +82,7 @@
           >Auth System</span
         >
       </div>
+      </a>
       <a
         class="text-sm font-medium text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors"
         href="#"
@@ -116,7 +117,8 @@
             </p>
           </div>
         </div>
-        <form action="#" class="p-8 pt-2 flex flex-col gap-6" method="POST">
+        <form action="{% url 'account:register_view' %}" class="p-8 pt-2 flex flex-col gap-6" method="POST" novalidate>
+          {% csrf_token %}
           <!-- Role Selection -->
           <div class="flex flex-col gap-3">
             <label
@@ -183,19 +185,21 @@
           </div>
           <!-- Personal Info Inputs -->
           <div class="space-y-5">
-            <!-- Full Name -->
+            <!-- Name -->
             <div class="relative group">
               <input
                 class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
-                id="fullname"
-                placeholder="Full Name"
-                required=""
+                id="name"
+                name="{{ form.name.name }}"
+                placeholder="Name"
+                required
                 type="text"
+                value="{{ form.name.value | default:'' }}"
               />
               <label
                 class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
-                for="fullname"
-                >Full Name</label
+                for="name"
+                >Name</label
               >
               <div
                 class="absolute right-3 top-3.5 text-gray-400 peer-focus:text-primary transition-colors"
@@ -204,6 +208,13 @@
                   >person</span
                 >
               </div>
+              {% if form.name.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                  {% for error in form.name.errors %}
+                    <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
             </div>
             <!-- Contact Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -211,9 +222,11 @@
                 <input
                   class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
                   id="email"
+                  name="{{ form.email.name }}"
                   placeholder="Email"
-                  required=""
+                  required
                   type="email"
+                  value="{{ form.email.value | default:'' }}"
                 />
                 <label
                   class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
@@ -227,14 +240,23 @@
                     >mail</span
                   >
                 </div>
+                {% if form.email.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                  {% for error in form.email.errors %}
+                    <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
               </div>
               <div class="relative group">
                 <input
                   class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
                   id="phone"
+                  name="{{ form.phone_number.name }}"
                   placeholder="Phone"
                   required=""
                   type="tel"
+                  value="{{ form.phone_number.value | default:'' }}"
                 />
                 <label
                   class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
@@ -248,6 +270,13 @@
                     >call</span
                   >
                 </div>
+                {% if form.phone_number.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                  {% for error in form.phone_number.errors %}
+                    <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
               </div>
             </div>
             <!-- Password Section -->
@@ -256,9 +285,11 @@
                 <input
                   class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
                   id="password"
+                  name="{{ form.password.name }}"
                   placeholder="Password"
-                  required=""
+                  required
                   type="password"
+                  value="{{ form.confirm_password.value | default:''}}"
                 />
                 <label
                   class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
@@ -273,20 +304,36 @@
                     >visibility_off</span
                   >
                 </button>
+                {% if form.password.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                  {% for error in form.password.errors %}
+                    <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
               </div>
               <div class="relative group">
                 <input
                   class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
                   id="confirm_password"
+                  name="{{ form.confirm_password.name }}"
                   placeholder="Confirm Password"
                   required=""
                   type="password"
+                  value="{{ form.confirm_password.value | default:''}}"
                 />
                 <label
                   class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
                   for="confirm_password"
                   >Confirm Password</label
                 >
+                {% if form.confirm_password.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                  {% for error in form.confirm_password.errors %}
+                    <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
               </div>
             </div>
             <!-- Password Strength Indicator -->
@@ -347,7 +394,7 @@
               Already have an account?
               <a
                 class="font-bold text-primary hover:text-[#1e7e5e] transition-colors"
-                href="#"
+                href="{% url 'account:login_view' %}"
                 >Log in</a
               >
             </p>
