@@ -20,11 +20,19 @@
             >Home</a
           >
           {% if user.is_authenticated %}
+          {% if user.is_seller %}
           <a
             class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-            href="#"
+            href="{% url 'seller:seller_dashboard' %}"
             >Dashboard</a
           >
+          {% elif user.is_customer %}
+          <a
+            class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+            href="{% url 'customer:customer_dashboard' %}"
+            >Dashboard</a
+          >
+          {% endif %}
           {% endif %}
         </nav>
         {% if not user.is_authenticated %}

@@ -4,5 +4,5 @@ from seller.views import seller_dashboard
 
 app_name = 'seller'
 urlpatterns = [
-    path('dashboard/', seller_dashboard, name='seller_dashboard'),
+    path('seller/dashboard/', seller_dashboard, name='seller_dashboard'),
 ]
