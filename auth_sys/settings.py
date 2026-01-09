@@ -124,3 +124,7 @@ EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'
+
+# when user click on logout button below will be used to redirect user to login page
+LOGOUT_REDIRECT_URL = "account:login_view"
+LOGIN_URL= "account:login_view"

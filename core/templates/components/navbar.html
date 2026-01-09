@@ -67,12 +67,15 @@
               background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCiZTk6mT0PEagYz6cDKmtA8qik83LkuTpRM3xgY9Wn7c-zb50Cw8lvkPYYTQknl-mvRMzHhOoIM4P5R7yJ3SU6nv48bNXqEU7vIbo-810DOfcXSS5DL1q1BarpP6fwf02UosE_4jBwDEseHVLOLeL87hGLBLWwtLDZZWAfPMp5763hgSkd_VplOrtNmIx_i93DJFGNLDzOz-vqQ7zt-ajsJBFNxmI4y6Bka7kKOjpi5HPe_Qts1sVgvDQmRiUfth1u9SlOmPs1I1U');
             "
           ></div>
+          <form action="{% url 'account:logout' %}" method="post">
+            {% csrf_token %}
           <button
             class="hidden sm:flex items-center justify-center size-8 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             title="Logout"
           >
             <span class="material-symbols-outlined text-[20px]">logout</span>
           </button>
+          </form>
           {% endif %}
         </div>
       </div>

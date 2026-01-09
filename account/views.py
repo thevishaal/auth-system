@@ -26,6 +26,7 @@ def login_view(request):
         if not email or not password:
             messages.error(request, "Both Fields are required!")
             return redirect("account:login_view")
+        
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
@@ -36,7 +37,7 @@ def login_view(request):
             messages.error(request, "Your account is inactive. Please activate your account.")
             return redirect("account:login_view")
         
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=email, password=password)
 
         if user is not None:
             login(request, user)
