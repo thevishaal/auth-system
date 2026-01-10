@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>{% block title %}Home{% endblock %}</title>
+    <title>{% block title %}| Auth System{% endblock %}</title>
     <!-- Google Fonts: Manrope -->
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap"
@@ -74,19 +74,19 @@
       }
     </style>
   </head>
-  <body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 font-display transition-colors duration-200 min-h-screen flex flex-col">
-
+  <body
+    class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 font-display transition-colors duration-200 min-h-screen flex flex-col"
+  >
     <!---------navbar----------->
     {% include "components/navbar.html" %}
 
     <!---------messages--------->
     {% include "components/message.html" %}
-    
+
     <!---------content---------->
     {% block content %}{% endblock %}
-    
+
     <!---------footer----------->
     {% include "components/footer.html" %}
-
   </body>
 </html>

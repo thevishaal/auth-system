@@ -19,11 +19,11 @@ def password_change_view(request):
             logout(request)
             messages.success(request, "Password changed successfully. Please log in with your new password.")
             return redirect("account:login_view")
-        else:
-            # Handlw form errors and display them to the user
+        '''else:
+            # Handle form errors and display them to the user
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, error)
+                    messages.error(request, error)'''
     else:
         form = PasswordChangeForm(user = request.user)
     return render(request, "customer/password_change.html", {'form': form})

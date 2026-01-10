@@ -1,423 +1,330 @@
-<!DOCTYPE html>
-<html class="light" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Signup - Create Account</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#269c75",
-              "background-light": "#f9fafb",
-              "background-dark": "#1a1c1e",
-            },
-            fontFamily: {
-              display: ["Manrope", "sans-serif"],
-            },
-            borderRadius: {
-              DEFAULT: "0.25rem",
-              lg: "0.5rem",
-              xl: "0.75rem",
-              "2xl": "1rem",
-              full: "9999px",
-            },
-            boxShadow: {
-              soft: "0 20px 40px -10px rgba(0, 0, 0, 0.05)",
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      /* Custom scrollbar for better aesthetics */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
-    </style>
-  </head>
-  <body
-    class="font-display bg-background-light dark:bg-background-dark text-[#121715] dark:text-white transition-colors duration-300 min-h-screen flex flex-col"
+{% extends "core/base.html" %} {% block title %}Registration {{ block.super }}{% endblock %} 
+{% block content %}
+
+<main class="flex-1 flex items-center justify-center p-4 sm:p-8 relative">
+  <!-- Abstract background pattern -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div
+      class="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl"
+    ></div>
+    <div
+      class="absolute top-[60%] -left-[10%] w-[400px] h-[400px] rounded-full bg-blue-500/5 blur-3xl"
+    ></div>
+  </div>
+  <!-- Main Card -->
+  <div
+    class="relative w-full max-w-[540px] bg-white dark:bg-[#25282c] rounded-2xl shadow-soft border border-gray-100 dark:border-gray-800 z-10 overflow-hidden"
   >
-    <!-- Navbar for minimal context (optional based on full app, but good for navigation back) -->
-    <header
-      class="w-full px-6 py-4 flex justify-between items-center absolute top-0 left-0 z-10"
+    <!-- Progress / Header Section -->
+    <div class="p-8 pb-0">
+      <div class="flex flex-col gap-2 mb-6">
+        <h1
+          class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white"
+        >
+          Create Account
+        </h1>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">
+          Join our community of sustainable shoppers and sellers.
+        </p>
+      </div>
+    </div>
+    <form
+      action="{% url 'account:register_view' %}"
+      class="p-8 pt-2 flex flex-col gap-6"
+      method="POST"
     >
-      <a href="{% url 'core:home' %}">
-      <div class="flex items-center gap-2 cursor-pointer group">
-        <div
-          class="size-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300"
+      {% csrf_token %}
+      <!-- Role Selection -->
+      <div class="flex flex-col gap-3">
+        <label
+          class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400"
+          >I want to</label
         >
-          <span class="material-symbols-outlined text-xl">spa</span>
+        <div class="grid grid-cols-2 gap-4">
+          <label class="group relative cursor-pointer">
+            <input
+              checked=""
+              class="peer sr-only"
+              name="role"
+              type="radio"
+              value="customer"
+            />
+            <div
+              class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800 transition-all duration-200 peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10 peer-checked:shadow-sm"
+            >
+              <span
+                class="material-symbols-outlined text-gray-400 peer-checked:text-primary text-3xl transition-colors"
+                >shopping_bag</span
+              >
+              <span
+                class="font-bold text-sm text-gray-600 dark:text-gray-300 peer-checked:text-primary"
+                >Buy Products</span
+              >
+            </div>
+            <div
+              class="absolute top-3 right-3 opacity-0 peer-checked:opacity-100 text-primary transition-opacity"
+            >
+              <span class="material-symbols-outlined text-lg"
+                >check_circle</span
+              >
+            </div>
+          </label>
+          <label class="group relative cursor-pointer">
+            <input
+              class="peer sr-only"
+              name="role"
+              type="radio"
+              value="seller"
+            />
+            <div
+              class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800 transition-all duration-200 peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10 peer-checked:shadow-sm"
+            >
+              <span
+                class="material-symbols-outlined text-gray-400 peer-checked:text-primary text-3xl transition-colors"
+                >storefront</span
+              >
+              <span
+                class="font-bold text-sm text-gray-600 dark:text-gray-300 peer-checked:text-primary"
+                >Sell Items</span
+              >
+            </div>
+            <div
+              class="absolute top-3 right-3 opacity-0 peer-checked:opacity-100 text-primary transition-opacity"
+            >
+              <span class="material-symbols-outlined text-lg"
+                >check_circle</span
+              >
+            </div>
+          </label>
         </div>
-        <span
-          class="font-bold text-lg tracking-tight text-gray-900 dark:text-white"
-          >Auth System</span
-        >
       </div>
-      </a>
-      <a
-        class="text-sm font-medium text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors"
-        href="#"
-      >
-        Help &amp; Support
-      </a>
-    </header>
-    <main class="flex-1 flex items-center justify-center p-4 sm:p-8 relative">
-      <!-- Abstract background pattern -->
-      <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div
-          class="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl"
-        ></div>
-        <div
-          class="absolute top-[60%] -left-[10%] w-[400px] h-[400px] rounded-full bg-blue-500/5 blur-3xl"
-        ></div>
-      </div>
-      <!-- Main Card -->
-      <div
-        class="relative w-full max-w-[540px] bg-white dark:bg-[#25282c] rounded-2xl shadow-soft border border-gray-100 dark:border-gray-800 z-10 overflow-hidden"
-      >
-        <!-- Progress / Header Section -->
-        <div class="p-8 pb-0">
-          <div class="flex flex-col gap-2 mb-6">
-            <h1
-              class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white"
-            >
-              Create Account
-            </h1>
-            <p class="text-gray-500 dark:text-gray-400 text-sm">
-              Join our community of sustainable shoppers and sellers.
-            </p>
-          </div>
-        </div>
-        <form action="{% url 'account:register_view' %}" class="p-8 pt-2 flex flex-col gap-6" method="POST" novalidate>
-          {% csrf_token %}
-          <!-- Role Selection -->
-          <div class="flex flex-col gap-3">
-            <label
-              class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400"
-              >I want to</label
-            >
-            <div class="grid grid-cols-2 gap-4">
-              <label class="group relative cursor-pointer">
-                <input
-                  checked=""
-                  class="peer sr-only"
-                  name="role"
-                  type="radio"
-                  value="customer"
-                />
-                <div
-                  class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800 transition-all duration-200 peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10 peer-checked:shadow-sm"
-                >
-                  <span
-                    class="material-symbols-outlined text-gray-400 peer-checked:text-primary text-3xl transition-colors"
-                    >shopping_bag</span
-                  >
-                  <span
-                    class="font-bold text-sm text-gray-600 dark:text-gray-300 peer-checked:text-primary"
-                    >Buy Products</span
-                  >
-                </div>
-                <div
-                  class="absolute top-3 right-3 opacity-0 peer-checked:opacity-100 text-primary transition-opacity"
-                >
-                  <span class="material-symbols-outlined text-lg"
-                    >check_circle</span
-                  >
-                </div>
-              </label>
-              <label class="group relative cursor-pointer">
-                <input
-                  class="peer sr-only"
-                  name="role"
-                  type="radio"
-                  value="seller"
-                />
-                <div
-                  class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800 transition-all duration-200 peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10 peer-checked:shadow-sm"
-                >
-                  <span
-                    class="material-symbols-outlined text-gray-400 peer-checked:text-primary text-3xl transition-colors"
-                    >storefront</span
-                  >
-                  <span
-                    class="font-bold text-sm text-gray-600 dark:text-gray-300 peer-checked:text-primary"
-                    >Sell Items</span
-                  >
-                </div>
-                <div
-                  class="absolute top-3 right-3 opacity-0 peer-checked:opacity-100 text-primary transition-opacity"
-                >
-                  <span class="material-symbols-outlined text-lg"
-                    >check_circle</span
-                  >
-                </div>
-              </label>
-            </div>
-          </div>
-          <!-- Personal Info Inputs -->
-          <div class="space-y-5">
-            <!-- Name -->
-            <div class="relative group">
-              <input
-                class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
-                id="name"
-                name="{{ form.name.name }}"
-                placeholder="Name"
-                required
-                type="text"
-                value="{{ form.name.value | default:'' }}"
-              />
-              <label
-                class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
-                for="name"
-                >Name</label
-              >
-              <div
-                class="absolute right-3 top-3.5 text-gray-400 peer-focus:text-primary transition-colors"
-              >
-                <span class="material-symbols-outlined text-[20px]"
-                  >person</span
-                >
-              </div>
-              {% if form.name.errors %}
-                <div class="text-red-500 text-sm mt-1">
-                  {% for error in form.name.errors %}
-                    <p>{{ error }}</p>
-                  {% endfor %}
-                </div>
-              {% endif %}
-            </div>
-            <!-- Contact Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div class="relative group">
-                <input
-                  class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
-                  id="email"
-                  name="{{ form.email.name }}"
-                  placeholder="Email"
-                  required
-                  type="email"
-                  value="{{ form.email.value | default:'' }}"
-                />
-                <label
-                  class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
-                  for="email"
-                  >Email Address</label
-                >
-                <div
-                  class="absolute right-3 top-3.5 text-gray-400 peer-focus:text-primary transition-colors"
-                >
-                  <span class="material-symbols-outlined text-[20px]"
-                    >mail</span
-                  >
-                </div>
-                {% if form.email.errors %}
-                <div class="text-red-500 text-sm mt-1">
-                  {% for error in form.email.errors %}
-                    <p>{{ error }}</p>
-                  {% endfor %}
-                </div>
-              {% endif %}
-              </div>
-              <div class="relative group">
-                <input
-                  class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
-                  id="phone"
-                  name="{{ form.phone_number.name }}"
-                  placeholder="Phone"
-                  required=""
-                  type="tel"
-                  value="{{ form.phone_number.value | default:'' }}"
-                />
-                <label
-                  class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
-                  for="phone"
-                  >Phone Number</label
-                >
-                <div
-                  class="absolute right-3 top-3.5 text-gray-400 peer-focus:text-primary transition-colors"
-                >
-                  <span class="material-symbols-outlined text-[20px]"
-                    >call</span
-                  >
-                </div>
-                {% if form.phone_number.errors %}
-                <div class="text-red-500 text-sm mt-1">
-                  {% for error in form.phone_number.errors %}
-                    <p>{{ error }}</p>
-                  {% endfor %}
-                </div>
-              {% endif %}
-              </div>
-            </div>
-            <!-- Password Section -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div class="relative group">
-                <input
-                  class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
-                  id="password"
-                  name="{{ form.password.name }}"
-                  placeholder="Password"
-                  required
-                  type="password"
-                  value="{{ form.confirm_password.value | default:''}}"
-                />
-                <label
-                  class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
-                  for="password"
-                  >Password</label
-                >
-                <button
-                  class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
-                  type="button"
-                >
-                  <span class="material-symbols-outlined text-[20px]"
-                    >visibility_off</span
-                  >
-                </button>
-                {% if form.password.errors %}
-                <div class="text-red-500 text-sm mt-1">
-                  {% for error in form.password.errors %}
-                    <p>{{ error }}</p>
-                  {% endfor %}
-                </div>
-              {% endif %}
-              </div>
-              <div class="relative group">
-                <input
-                  class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
-                  id="confirm_password"
-                  name="{{ form.confirm_password.name }}"
-                  placeholder="Confirm Password"
-                  required=""
-                  type="password"
-                  value="{{ form.confirm_password.value | default:''}}"
-                />
-                <label
-                  class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
-                  for="confirm_password"
-                  >Confirm Password</label
-                >
-                {% if form.confirm_password.errors %}
-                <div class="text-red-500 text-sm mt-1">
-                  {% for error in form.confirm_password.errors %}
-                    <p>{{ error }}</p>
-                  {% endfor %}
-                </div>
-              {% endif %}
-              </div>
-            </div>
-            <!-- Password Strength Indicator -->
-            <div class="w-full flex gap-1 pt-1">
-              <div class="h-1 flex-1 rounded-full bg-red-400"></div>
-              <div class="h-1 flex-1 rounded-full bg-yellow-400"></div>
-              <div
-                class="h-1 flex-1 rounded-full bg-gray-200 dark:bg-gray-700"
-              ></div>
-              <div
-                class="h-1 flex-1 rounded-full bg-gray-200 dark:bg-gray-700"
-              ></div>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 -mt-3">
-              Strength: <span class="text-yellow-500 font-medium">Medium</span>
-            </p>
-          </div>
-          <!-- Terms -->
-          <div class="flex items-start pt-2">
-            <div class="flex items-center h-5">
-              <input
-                class="w-5 h-5 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary/20 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary/40 text-primary transition-colors cursor-pointer"
-                id="terms"
-                type="checkbox"
-                value=""
-              />
-            </div>
-            <label
-              class="ml-3 text-sm font-medium text-gray-600 dark:text-gray-300 cursor-pointer select-none"
-              for="terms"
-            >
-              I agree to the
-              <a class="text-primary hover:underline" href="#"
-                >Terms of Service</a
-              >
-              and
-              <a class="text-primary hover:underline" href="#">Privacy Policy</a
-              >.
-            </label>
-          </div>
-          <!-- Action Button -->
-          <button
-            class="group relative w-full flex justify-center py-3.5 px-4 border border-transparent rounded-lg text-white bg-primary hover:bg-[#208563] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-bold text-base shadow-lg shadow-primary/30 transition-all duration-300 transform active:scale-[0.98]"
-            type="submit"
+      <!-- Personal Info Inputs -->
+      <div class="space-y-5">
+        <!-- Name -->
+        <div class="relative group">
+          <input
+            class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
+            id="name"
+            name="{{ form.name.name }}"
+            placeholder="Name"
+            required
+            type="text"
+            value="{{ form.name.value | default:'' }}"
+          />
+          <label
+            class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
+            for="name"
+            >Name</label
           >
-            <span
-              class="absolute left-0 inset-y-0 flex items-center pl-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          <div
+            class="absolute right-3 top-3.5 text-gray-400 peer-focus:text-primary transition-colors"
+          >
+            <span class="material-symbols-outlined text-[20px]">person</span>
+          </div>
+          {% if form.name.errors %}
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.name.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <!-- Contact Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="relative group">
+            <input
+              class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
+              id="email"
+              name="{{ form.email.name }}"
+              placeholder="Email"
+              required
+              type="email"
+              value="{{ form.email.value | default:'' }}"
+            />
+            <label
+              class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
+              for="email"
+              >Email Address</label
             >
-              <span class="material-symbols-outlined text-white"
-                >arrow_forward</span
-              >
-            </span>
-            Create Account
-          </button>
-          <!-- Footer -->
-          <div class="text-center pt-2">
-            <p class="text-sm text-gray-500 dark:text-gray-400">
-              Already have an account?
-              <a
-                class="font-bold text-primary hover:text-[#1e7e5e] transition-colors"
-                href="{% url 'account:login_view' %}"
-                >Log in</a
-              >
-            </p>
+            <div
+              class="absolute right-3 top-3.5 text-gray-400 peer-focus:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-[20px]">mail</span>
+            </div>
+            {% if form.email.errors %}
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.email.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
           </div>
-        </form>
-      </div>
-      <!-- Trust indicators / decoration -->
-      <div class="absolute bottom-8 text-center hidden md:block opacity-60">
-        <div
-          class="flex items-center justify-center gap-6 text-gray-400 dark:text-gray-500 grayscale"
-        >
-          <div class="flex items-center gap-1">
-            <span class="material-symbols-outlined text-[18px]"
-              >verified_user</span
-            ><span class="text-xs font-semibold">Secure Encryption</span>
-          </div>
-          <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
-          <div class="flex items-center gap-1">
-            <span class="material-symbols-outlined text-[18px]">gpp_good</span
-            ><span class="text-xs font-semibold">Verified Dealers</span>
+          <div class="relative group">
+            <input
+              class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
+              id="phone"
+              name="{{ form.phone_number.name }}"
+              placeholder="Phone"
+              required=""
+              type="tel"
+              value="{{ form.phone_number.value | default:'' }}"
+            />
+            <label
+              class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
+              for="phone"
+              >Phone Number</label
+            >
+            <div
+              class="absolute right-3 top-3.5 text-gray-400 peer-focus:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-[20px]">call</span>
+            </div>
+            {% if form.phone_number.errors %}
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.phone_number.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
           </div>
         </div>
+        <!-- Password Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="relative group">
+            <input
+              class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
+              id="password"
+              name="{{ form.password.name }}"
+              placeholder="Password"
+              required
+              type="password"
+              value="{{ form.confirm_password.value | default:''}}"
+            />
+            <label
+              class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
+              for="password"
+              >Password</label
+            >
+            {% comment %}
+            <button
+              class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+              type="button"
+            >
+              <span class="material-symbols-outlined text-[20px]"
+                >visibility_off</span
+              >
+            </button>
+            {% endcomment %} {% if form.password.errors %}
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.password.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="relative group">
+            <input
+              class="peer block w-full px-4 py-3.5 text-base text-gray-900 dark:text-white bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-transparent transition-all"
+              id="confirm_password"
+              name="{{ form.confirm_password.name }}"
+              placeholder="Confirm Password"
+              required=""
+              type="password"
+              value="{{ form.confirm_password.value | default:''}}"
+            />
+            <label
+              class="absolute left-2 -top-2.5 bg-white dark:bg-[#25282c] px-2 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:text-primary peer-focus:text-sm"
+              for="confirm_password"
+              >Confirm Password</label
+            >
+            {% if form.confirm_password.errors %}
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.confirm_password.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Password Strength Indicator -->
+        <div class="w-full flex gap-1 pt-1">
+          <div class="h-1 flex-1 rounded-full bg-red-400"></div>
+          <div class="h-1 flex-1 rounded-full bg-yellow-400"></div>
+          <div
+            class="h-1 flex-1 rounded-full bg-gray-200 dark:bg-gray-700"
+          ></div>
+          <div
+            class="h-1 flex-1 rounded-full bg-gray-200 dark:bg-gray-700"
+          ></div>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 -mt-3">
+          Strength: <span class="text-yellow-500 font-medium">Medium</span>
+        </p>
       </div>
-    </main>
-  </body>
-</html>
+      <!-- Terms -->
+      {% comment %}
+      <div class="flex items-start pt-2">
+        <div class="flex items-center h-5">
+          <input
+            class="w-5 h-5 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary/20 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary/40 text-primary transition-colors cursor-pointer"
+            id="terms"
+            type="checkbox"
+            value=""
+          />
+        </div>
+        <label
+          class="ml-3 text-sm font-medium text-gray-600 dark:text-gray-300 cursor-pointer select-none"
+          for="terms"
+        >
+          I agree to the
+          <a class="text-primary hover:underline" href="#">Terms of Service</a>
+          and
+          <a class="text-primary hover:underline" href="#">Privacy Policy</a>.
+        </label>
+      </div>
+      {% endcomment %}
+      <!-- Action Button -->
+      <button
+        class="group relative w-full flex justify-center py-3.5 px-4 border border-transparent rounded-lg text-white bg-primary hover:bg-[#208563] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-bold text-base shadow-lg shadow-primary/30 transition-all duration-300 transform active:scale-[0.98]"
+        type="submit"
+      >
+        <span
+          class="absolute left-0 inset-y-0 flex items-center pl-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <span class="material-symbols-outlined text-white"
+            >arrow_forward</span
+          >
+        </span>
+        Create Account
+      </button>
+      <!-- Footer -->
+      <div class="text-center pt-2">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          Already have an account?
+          <a
+            class="font-bold text-primary hover:text-[#1e7e5e] transition-colors"
+            href="{% url 'account:login_view' %}"
+            >Log in</a
+          >
+        </p>
+      </div>
+    </form>
+  </div>
+  <!-- Trust indicators / decoration -->
+  <div class="absolute bottom-8 text-center hidden md:block opacity-60">
+    <div
+      class="flex items-center justify-center gap-6 text-gray-400 dark:text-gray-500 grayscale"
+    >
+      <div class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[18px]">verified_user</span
+        ><span class="text-xs font-semibold">Secure Encryption</span>
+      </div>
+      <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+      <div class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[18px]">gpp_good</span
+        ><span class="text-xs font-semibold">Verified Dealers</span>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
